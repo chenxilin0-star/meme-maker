@@ -96,7 +96,7 @@ Page({
 
   onCustomMeme() {
     wx.navigateTo({
-      url: '/pages/template-lib/template-lib?mode=custom'
+      url: '/pages/editor/editor'
     });
   },
 

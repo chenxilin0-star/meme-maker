@@ -40,8 +40,7 @@
         bindtap="onMaterialTap"
         data-item="{{item}}"
       >
-        <view class="template-preview" style="background: linear-gradient(to bottom, {{item.gradient[0]}}, {{item.gradient[1]}});">
-        </view>
+        <image class="template-preview-img" src="{{item.src}}" mode="aspectFill"/>
         <text class="template-name">{{item.name}}</text>
         <text class="template-tag">{{item.tag}}</text>
       </view>

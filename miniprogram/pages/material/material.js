@@ -8,21 +8,21 @@ const CATEGORIES = [
   { id: 'text', name: '文案', icon: '✍️' }
 ];
 
-// 内置素材数据 - 使用真实素材图片
+// 内置素材数据 - 使用表情包图片作为模板
 const MATERIALS = {
   template: [
-    { id: 't1', name: '落日', tag: '经典', type: 'gradient', gradient: ['#FF6B6B', '#FFE66D'] },
-    { id: 't2', name: '海洋', tag: '简约', type: 'gradient', gradient: ['#4ECDC4', '#44A08D'] },
-    { id: 't3', name: '紫夜', tag: '神秘', type: 'gradient', gradient: ['#667eea', '#764ba2'] },
-    { id: 't4', name: '桃花', tag: '温柔', type: 'gradient', gradient: ['#ffecd2', '#fcb69f'] },
-    { id: 't5', name: '夜空', tag: '深邃', type: 'gradient', gradient: ['#0f2027', '#203a43', '#2c5364'] },
-    { id: 't6', name: '森林', tag: '自然', type: 'gradient', gradient: ['#11998e', '#38ef7d'] },
-    { id: 't7', name: '梦幻', tag: '可爱', type: 'gradient', gradient: ['#ff9a9e', '#fecfef'] },
-    { id: 't8', name: '暗色', tag: '酷酷', type: 'gradient', gradient: ['#232526', '#414345'] },
-    { id: 't9', name: '冰蓝', tag: '清爽', type: 'gradient', gradient: ['#2193b0', '#6dd5ed'] },
-    { id: 't10', name: '橙子', tag: '活力', type: 'gradient', gradient: ['#f83600', '#f9d423'] },
-    { id: 't11', name: '粉红', tag: '赛博', type: 'gradient', gradient: ['#ff00cc', '#333399'] },
-    { id: 't12', name: '森林深', tag: '深郁', type: 'gradient', gradient: ['#134e5e', '#71b280'] }
+    { id: 't1', name: '熊猫头', tag: '经典', type: 'image', src: '/assets/memes/13.jpg' },
+    { id: 't2', name: '蘑菇头', tag: '搞笑', type: 'image', src: '/assets/memes/41.jpg' },
+    { id: 't3', name: '金馆长', tag: '热门', type: 'image', src: '/assets/memes/81.jpg' },
+    { id: 't4', name: '打工人', tag: '打工', type: 'image', src: '/assets/memes/111.jpg' },
+    { id: 't5', name: '喵星人', tag: '可爱', type: 'image', src: '/assets/memes/125.jpg' },
+    { id: 't6', name: '狗头', tag: '自嘲', type: 'image', src: '/assets/memes/137.jpg' },
+    { id: 't7', name: '惊讶猫', tag: '可爱', type: 'image', src: '/assets/memes/157.jpg' },
+    { id: 't8', name: '流泪猫', tag: '搞笑', type: 'image', src: '/assets/memes/181.jpg' },
+    { id: 't9', name: '得意', tag: '热门', type: 'image', src: '/assets/memes/182.jpg' },
+    { id: 't10', name: '开心', tag: '可爱', type: 'image', src: '/assets/memes/193.jpg' },
+    { id: 't11', name: '惊讶', tag: '经典', type: 'image', src: '/assets/memes/228.jpg' },
+    { id: 't12', name: '无语', tag: '打工', type: 'image', src: '/assets/memes/232.jpg' }
   ],
   sticker: [
     { id: 's1', src: '/assets/stickers/joy.png', name: '笑哭' },

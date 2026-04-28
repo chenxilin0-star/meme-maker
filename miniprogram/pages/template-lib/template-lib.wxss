@@ -85,7 +85,7 @@
 }
 
 .meme-card {
-  width: calc(33.333% - 11rpx);
+  width: calc((100% - 32rpx) / 3);
   background: #ffffff;
   border-radius: 16rpx;
   overflow: hidden;

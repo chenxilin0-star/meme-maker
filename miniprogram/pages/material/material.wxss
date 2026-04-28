@@ -50,6 +50,14 @@
   position: relative;
 }
 
+.template-preview-img {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 16rpx;
+  margin-bottom: 12rpx;
+  background: #f0f0f5;
+}
+
 .template-name {
   font-size: 28rpx;
   font-weight: 600;
