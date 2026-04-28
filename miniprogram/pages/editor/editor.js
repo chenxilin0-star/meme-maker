@@ -273,39 +273,44 @@ Page({
     const sorted = [...this.data.layers].sort((a, b) => (a.zIndex || 0) - (b.zIndex || 0));
 
     for (const layer of sorted) {
-      ctx.save();
-      ctx.globalAlpha = layer.opacity ?? 1;
-      ctx.translate(layer.x, layer.y);
-      ctx.rotate((layer.rotate || 0) * Math.PI / 180);
-      ctx.scale((layer.scale || 1), (layer.scale || 1));
+      try {
+        ctx.save();
+        ctx.globalAlpha = layer.opacity ?? 1;
+        ctx.translate(layer.x, layer.y);
+        ctx.rotate((layer.rotate || 0) * Math.PI / 180);
+        ctx.scale((layer.scale || 1), (layer.scale || 1));
 
-      if (layer.type === LAYER_TYPES.BACKGROUND) {
-        if (layer.src) {
-          const img = await this.getImage(layer.src);
-          ctx.drawImage(img, -layer.width / 2, -layer.height / 2, layer.width, layer.height);
-        } else if (layer.gradient && layer.gradient.length >= 2) {
-          const grd = ctx.createLinearGradient(-layer.width / 2, -layer.height / 2, -layer.width / 2, layer.height / 2);
-          layer.gradient.forEach((color, idx) => {
-            grd.addColorStop(idx / (layer.gradient.length - 1), color);
-          });
-          ctx.fillStyle = grd;
-          ctx.fillRect(-layer.width / 2, -layer.height / 2, layer.width, layer.height);
-        } else {
-          ctx.fillStyle = layer.bgColor || '#FFFFFF';
-          ctx.fillRect(-layer.width / 2, -layer.height / 2, layer.width, layer.height);
+        if (layer.type === LAYER_TYPES.BACKGROUND) {
+          if (layer.src) {
+            const img = await this.getImage(layer.src);
+            ctx.drawImage(img, -layer.width / 2, -layer.height / 2, layer.width, layer.height);
+          } else if (layer.gradient && layer.gradient.length >= 2) {
+            const grd = ctx.createLinearGradient(-layer.width / 2, -layer.height / 2, -layer.width / 2, layer.height / 2);
+            layer.gradient.forEach((color, idx) => {
+              grd.addColorStop(idx / (layer.gradient.length - 1), color);
+            });
+            ctx.fillStyle = grd;
+            ctx.fillRect(-layer.width / 2, -layer.height / 2, layer.width, layer.height);
+          } else {
+            ctx.fillStyle = layer.bgColor || '#FFFFFF';
+            ctx.fillRect(-layer.width / 2, -layer.height / 2, layer.width, layer.height);
+          }
+        } else if (layer.type === LAYER_TYPES.STICKER) {
+          if (layer.src) {
+            const img = await this.getImage(layer.src);
+            const dw = layer.width || img.width;
+            const dh = layer.height || img.height;
+            ctx.drawImage(img, -dw / 2, -dh / 2, dw, dh);
+          }
+        } else if (layer.type === LAYER_TYPES.TEXT) {
+          this.drawStyledText(ctx, layer);
         }
-      } else if (layer.type === LAYER_TYPES.STICKER) {
-        if (layer.src) {
-          const img = await this.getImage(layer.src);
-          const dw = layer.width || img.width;
-          const dh = layer.height || img.height;
-          ctx.drawImage(img, -dw / 2, -dh / 2, dw, dh);
-        }
-      } else if (layer.type === LAYER_TYPES.TEXT) {
-        this.drawStyledText(ctx, layer);
+
+        ctx.restore();
+      } catch (err) {
+        ctx.restore();
+        console.warn('Layer render error:', layer.id, err);
       }
-
-      ctx.restore();
     }
 
     // 绘制选中框
@@ -393,11 +398,19 @@ Page({
     if (this.imageCache.has(src)) return this.imageCache.get(src);
     return new Promise((resolve, reject) => {
       const img = this.canvas.createImage();
+      const timeout = setTimeout(() => {
+        reject(new Error('Image load timeout: ' + src));
+      }, 5000);
       img.onload = () => {
+        clearTimeout(timeout);
         this.imageCache.set(src, img);
         resolve(img);
       };
-      img.onerror = reject;
+      img.onerror = (err) => {
+        clearTimeout(timeout);
+        console.warn('Image load failed:', src, err);
+        reject(err);
+      };
       img.src = src;
     });
   },
