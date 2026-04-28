@@ -209,14 +209,18 @@ Page({
         .exec((res) => resolve(res[0]));
     });
 
+    if (!res || !res.node) {
+      console.error('Canvas node not found, retrying...');
+      setTimeout(() => this.initCanvas(), 300);
+      return;
+    }
+
     const canvas = res.node;
     const ctx = canvas.getContext('2d');
     const dpr = wx.getWindowInfo().pixelRatio;
 
     canvas.width = res.width * dpr;
     canvas.height = res.height * dpr;
-    canvas.style.width = `${res.width}px`;
-    canvas.style.height = `${res.height}px`;
     ctx.scale(dpr, dpr);
 
     this.canvas = canvas;
