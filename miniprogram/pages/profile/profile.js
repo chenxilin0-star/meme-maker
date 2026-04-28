@@ -14,10 +14,50 @@ Page({
   onLoad() {
     this.loadUserInfo();
     this.loadMemes();
+    this.checkLoginStatus();
   },
 
   onShow() {
     this.loadMemes();
+    this.checkLoginStatus();
+  },
+
+  checkLoginStatus() {
+    const app = getApp();
+    if (app.globalData.openid) {
+      // 已登录，尝试从云端获取作品
+      this.loadCloudMemes();
+    }
+  },
+
+  async loadCloudMemes() {
+    try {
+      const res = await api.getUserMemes({ page: 1, limit: 50 });
+      if (res.success && res.data && res.data.list) {
+        // 合并本地和云端作品（去重）
+        const localMemes = store.getMemes();
+        const cloudMemes = res.data.list.map(item => ({
+          ...item,
+          localId: item._id || item.id,
+          fromCloud: true
+        }));
+        const merged = [...cloudMemes];
+        localMemes.forEach(local => {
+          if (!merged.find(m => m.localId === local.localId)) {
+            merged.push(local);
+          }
+        });
+        this.setData({
+          memes: merged,
+          stats: {
+            total: merged.length,
+            saved: merged.filter(m => m.saved || m.fromCloud).length
+          }
+        });
+      }
+    } catch (err) {
+      console.warn('Load cloud memes failed:', err);
+    }
   },
 
   loadUserInfo() {

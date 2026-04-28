@@ -16,6 +16,19 @@ App({
     }
 
     this.loadLocalUser();
+    this.autoLogin();
+  },
+
+  async autoLogin() {
+    try {
+      const { result } = await wx.cloud.callFunction({ name: 'authLogin', data: {} });
+      if (result && result.success && result.data && result.data.openid) {
+        this.globalData.openid = result.data.openid;
+        console.log('[App] Auto login success, openid:', result.data.openid);
+      }
+    } catch (err) {
+      console.warn('[App] Auto login failed:', err);
+    }
   },
 
   loadLocalUser() {
