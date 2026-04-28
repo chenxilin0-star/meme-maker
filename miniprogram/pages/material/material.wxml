@@ -1,0 +1,93 @@
+<view class="container">
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <view class="search-input-wrap">
+      <text class="search-icon">🔍</text>
+      <input
+        class="search-input"
+        placeholder="搜索素材..."
+        value="{{searchKeyword}}"
+        bindinput="onSearchInput"
+        bindconfirm="onSearchConfirm"
+      />
+    </view>
+  </view>
+
+  <!-- 分类标签 -->
+  <scroll-view class="category-scroll" scroll-x enhanced show-scrollbar="false">
+    <view class="category-list">
+      <view
+        class="category-item {{activeCategory === item.id ? 'active' : ''}}"
+        wx:for="{{categories}}"
+        wx:key="id"
+        bindtap="onCategoryTap"
+        data-id="{{item.id}}"
+      >
+        <text class="category-icon">{{item.icon}}</text>
+        <text>{{item.name}}</text>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 素材列表 -->
+  <view class="materials-list">
+    <!-- 模板 -->
+    <view class="grid-2" wx:if="{{activeCategory === 'template'}}">
+      <view
+        class="template-card"
+        wx:for="{{materials}}"
+        wx:key="id"
+        bindtap="onMaterialTap"
+        data-item="{{item}}"
+      >
+        <view class="template-preview" style="background: {{item.color}}20;">
+          <text class="template-emoji">🎨</text>
+        </view>
+        <text class="template-name">{{item.name}}</text>
+        <text class="template-tag">{{item.tag}}</text>
+      </view>
+    </view>
+
+    <!-- 贴纸 -->
+    <view class="sticker-grid" wx:if="{{activeCategory === 'sticker'}}">
+      <view
+        class="sticker-card"
+        wx:for="{{materials}}"
+        wx:key="id"
+        bindtap="onMaterialTap"
+        data-item="{{item}}"
+      >
+        <text class="sticker-emoji">{{item.emoji}}</text>
+        <text class="sticker-name">{{item.name}}</text>
+      </view>
+    </view>
+
+    <!-- 背景 -->
+    <view class="bg-grid" wx:if="{{activeCategory === 'bg'}}">
+      <view
+        class="bg-card"
+        wx:for="{{materials}}"
+        wx:key="id"
+        bindtap="onMaterialTap"
+        data-item="{{item}}"
+      >
+        <view class="bg-preview" style="background: {{item.color}};"></view>
+        <text class="bg-name">{{item.name}}</text>
+      </view>
+    </view>
+
+    <!-- 文案 -->
+    <view class="text-list" wx:if="{{activeCategory === 'text'}}">
+      <view
+        class="text-card"
+        wx:for="{{materials}}"
+        wx:key="id"
+        bindtap="onMaterialTap"
+        data-item="{{item}}"
+      >
+        <text class="text-content">{{item.text}}</text>
+        <text class="text-category">{{item.category}}</text>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,88 @@
+<view class="container">
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <view class="search-input-wrap">
+      <text class="search-icon">🔍</text>
+      <input
+        class="search-input"
+        placeholder="搜索模板、文案..."
+        value="{{searchKeyword}}"
+        bindinput="onSearchInput"
+        bindconfirm="onSearchConfirm"
+      />
+    </view>
+    <button class="search-btn" bindtap="onSearchConfirm">搜索</button>
+  </view>
+
+  <!-- 热门文案 -->
+  <view class="card hot-texts-card">
+    <view class="section-title">今日热梗</view>
+    <view class="hot-texts-list">
+      <view
+        class="hot-text-item"
+        wx:for="{{hotTexts}}"
+        wx:key="id"
+        bindtap="onHotTextTap"
+        data-text="{{item.text}}"
+      >
+        <text class="hot-text-rank">{{index + 1}}</text>
+        <text class="hot-text-content">{{item.text}}</text>
+        <text class="hot-text-tag" wx:if="{{item.category}}">{{item.category}}</text>
+      </view>
+    </view>
+    <view class="refresh-bar" bindtap="onRefreshTexts">
+      <text class="refresh-text">🔄 换一批</text>
+    </view>
+  </view>
+
+  <!-- 快速制作 -->
+  <view class="quick-make">
+    <button class="btn-primary" bindtap="onQuickMake">
+      <text class="btn-icon">✏️</text>
+      <text>立即制作表情包</text>
+    </button>
+  </view>
+
+  <!-- 模板分类 -->
+  <view class="card templates-card">
+    <view class="section-title">热门模板</view>
+    <scroll-view class="category-scroll" scroll-x enhanced show-scrollbar="false">
+      <view class="category-list">
+        <view
+          class="category-item {{activeCategory === item.id ? 'active' : ''}}"
+          wx:for="{{categories}}"
+          wx:key="id"
+          bindtap="onCategoryTap"
+          data-id="{{item.id}}"
+        >
+          {{item.name}}
+        </view>
+      </view>
+    </scroll-view>
+
+    <view class="templates-grid">
+      <view
+        class="template-item"
+        wx:for="{{templates}}"
+        wx:key="id"
+        bindtap="onTemplateTap"
+        data-item="{{item}}"
+      >
+        <view class="template-preview" style="background: {{item.bgColor || '#f0f0f0'}};">
+          <text class="template-emoji" wx:if="{{item.bg}}">🐼</text>
+          <text class="template-name-overlay">{{item.name}}</text>
+        </view>
+        <text class="template-name">{{item.name}}</text>
+        <text class="template-desc">{{item.desc}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 使用说明 -->
+  <view class="tips-card">
+    <text class="tips-title">💡 使用小贴士</text>
+    <text class="tips-text">1. 选择模板或自定义背景</text>
+    <text class="tips-text">2. 添加文字、贴纸调整位置</text>
+    <text class="tips-text">3. 一键保存到相册或分享给好友</text>
+  </view>
+</view>

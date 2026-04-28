@@ -1,0 +1,9 @@
+{
+  "name": "saveMeme",
+  "version": "1.0.0",
+  "description": "保存表情包作品",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "latest"
+  }
+}

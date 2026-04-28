@@ -1,0 +1,20 @@
+<view class="container result-page">
+  <view class="preview-card">
+    <image class="preview-image" src="{{imagePath}}" mode="aspectFit" show-menu-by-longpress />
+  </view>
+
+  <view class="action-btns">
+    <button class="btn-primary" bindtap="onSaveToAlbum" loading="{{saving}}">
+      <text class="btn-icon">💾</text>
+      <text>保存到相册</text>
+    </button>
+    <button class="btn-secondary" open-type="share">
+      <text class="btn-icon">📤</text>
+      <text>分享给好友</text>
+    </button>
+    <view class="secondary-actions">
+      <view class="action-link" bindtap="onContinueEdit">← 继续编辑</view>
+      <view class="action-link" bindtap="onBackHome">返回首页 →</view>
+    </view>
+  </view>
+</view>

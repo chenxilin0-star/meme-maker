@@ -1,0 +1,47 @@
+{
+  "description": "表情包制作小程序 - 云数据库集合定义",
+  "collections": [
+    {
+      "name": "users",
+      "description": "用户信息表",
+      "fields": {
+        "_openid": "string",
+        "nickName": "string",
+        "avatarUrl": "string",
+        "createTime": "date",
+        "lastLoginAt": "date"
+      },
+      "indexes": [
+        { "name": "openid_idx", "fields": [{ "_openid": "asc" }], "unique": true }
+      ]
+    },
+    {
+      "name": "user_memes",
+      "description": "用户表情包作品",
+      "fields": {
+        "_openid": "string",
+        "path": "string",
+        "layers": "array",
+        "shareInfo": "object",
+        "createTime": "date"
+      },
+      "indexes": [
+        { "name": "openid_time_idx", "fields": [{ "_openid": "asc" }, { "createTime": "desc" }] }
+      ]
+    },
+    {
+      "name": "meme_texts",
+      "description": "表情包文案库",
+      "fields": {
+        "text": "string",
+        "category": "string",
+        "hot": "number",
+        "createTime": "date"
+      },
+      "indexes": [
+        { "name": "category_idx", "fields": [{ "category": "asc" }] },
+        { "name": "hot_idx", "fields": [{ "hot": "desc" }] }
+      ]
+    }
+  ]
+}

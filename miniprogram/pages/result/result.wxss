@@ -1,0 +1,52 @@
+/* 结果页面 */
+.result-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 48rpx;
+}
+
+.preview-card {
+  background: var(--card-bg);
+  border-radius: 24rpx;
+  padding: 32rpx;
+  box-shadow: var(--shadow);
+  margin-bottom: 48rpx;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.preview-image {
+  width: 100%;
+  max-height: 600rpx;
+  border-radius: 16rpx;
+  display: block;
+}
+
+.action-btns {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+.action-btns .btn-primary,
+.action-btns .btn-secondary {
+  width: 100%;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+}
+
+.secondary-actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 16rpx 8rpx;
+}
+
+.action-link {
+  font-size: 28rpx;
+  color: var(--primary);
+}

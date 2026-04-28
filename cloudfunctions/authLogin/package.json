@@ -1,0 +1,9 @@
+{
+  "name": "authLogin",
+  "version": "1.0.0",
+  "description": "用户登录与信息更新",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "latest"
+  }
+}

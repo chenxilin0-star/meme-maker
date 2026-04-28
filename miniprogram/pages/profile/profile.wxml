@@ -1,0 +1,74 @@
+<view class="container profile-page">
+  <!-- 用户信息卡片 -->
+  <view class="card user-card">
+    <view class="user-info">
+      <button class="avatar-btn" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+        <image class="avatar" src="{{userInfo.avatarUrl || '/assets/default-avatar.png'}}" mode="aspectFill" />
+      </button>
+      <view class="user-meta">
+        <input
+          class="nickname-input"
+          type="nickname"
+          placeholder="点击设置昵称"
+          value="{{userInfo.nickName || ''}}"
+          bindinput="onNicknameInput"
+        />
+        <text class="user-tip">点击头像和昵称进行编辑</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 统计卡片 -->
+  <view class="card stats-card">
+    <view class="stat-item">
+      <text class="stat-num">{{stats.total}}</text>
+      <text class="stat-label">我的作品</text>
+    </view>
+    <view class="stat-divider"></view>
+    <view class="stat-item">
+      <text class="stat-num">{{stats.saved}}</text>
+      <text class="stat-label">已保存</text>
+    </view>
+  </view>
+
+  <!-- 作品列表 -->
+  <view class="card memes-card" wx:if="{{memes.length > 0}}">
+    <view class="section-title">我的作品</view>
+    <view class="memes-grid">
+      <view
+        class="meme-item"
+        wx:for="{{memes}}"
+        wx:key="localId"
+        bindtap="onMemeTap"
+        data-item="{{item}}"
+      >
+        <image class="meme-image" src="{{item.path}}" mode="aspectFill" />
+        <view class="meme-overlay">
+          <text class="delete-btn" catchtap="onDeleteMeme" data-item="{{item}}">✕</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="empty-state" wx:if="{{memes.length === 0}}">
+    <text class="empty-icon">🖼️</text>
+    <text class="empty-text">还没有作品哦</text>
+    <text class="empty-subtext">快去制作你的第一个表情包吧！</text>
+    <button class="btn-primary" bindtap="onQuickMake" style="margin-top: 32rpx;">
+      立即制作
+    </button>
+  </view>
+
+  <!-- 设置列表 -->
+  <view class="card settings-card">
+    <view class="section-title">设置</view>
+    <view class="setting-item" bindtap="onAboutTap">
+      <text class="setting-label">📖 关于</text>
+      <text class="setting-arrow">›</text>
+    </view>
+    <view class="setting-item" bindtap="onFeedbackTap">
+      <text class="setting-label">💬 意见反馈</text>
+      <text class="setting-arrow">›</text>
+    </view>
+  </view>
+</view>

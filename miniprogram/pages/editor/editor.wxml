@@ -1,0 +1,122 @@
+<view class="editor-page">
+  <!-- Canvas 编辑区 -->
+  <view class="canvas-wrap">
+    <canvas
+      type="2d"
+      id="editorCanvas"
+      class="editor-canvas"
+      style="width: {{canvasWidth}}px; height: {{canvasHeight}}px;"
+      bindtouchstart="onTouchStart"
+      bindtouchmove="onTouchMove"
+      bindtouchend="onTouchEnd"
+    ></canvas>
+  </view>
+
+  <!-- 图层操作栏 -->
+  <view class="layer-actions" wx:if="{{showActions && activeLayerId}}">
+    <view class="action-btn" bindtap="onMoveUp">↑ 上移</view>
+    <view class="action-btn" bindtap="onMoveDown">↓ 下移</view>
+    <view class="action-btn delete" bindtap="onDeleteLayer">✕ 删除</view>
+  </view>
+
+  <!-- 底部工具栏 -->
+  <view class="toolbar safe-bottom">
+    <view class="tool-item" bindtap="onAddText">
+      <text class="tool-icon">📝</text>
+      <text class="tool-label">文字</text>
+    </view>
+    <view class="tool-item" bindtap="onAddSticker">
+      <text class="tool-icon">🎯</text>
+      <text class="tool-label">贴纸</text>
+    </view>
+    <view class="tool-item" bindtap="onChangeBg">
+      <text class="tool-icon">🎨</text>
+      <text class="tool-label">背景</text>
+    </view>
+    <view class="tool-item primary" bindtap="onExport">
+      <text class="tool-icon">💾</text>
+      <text class="tool-label">导出</text>
+    </view>
+  </view>
+
+  <!-- 文字编辑弹窗 -->
+  <view class="modal" wx:if="{{showTextEditor}}">
+    <view class="modal-mask" bindtap="onCancelText"></view>
+    <view class="modal-content">
+      <view class="modal-header">
+        <text class="modal-title">添加文字</text>
+        <text class="modal-close" bindtap="onCancelText">✕</text>
+      </view>
+      <textarea
+        class="text-input"
+        placeholder="输入表情包文字..."
+        value="{{textInput}}"
+        bindinput="onTextInput"
+        maxlength="100"
+        auto-height
+      />
+      <view class="color-picker">
+        <text class="picker-label">颜色</text>
+        <view class="color-list">
+          <view
+            class="color-item {{textColor === item ? 'active' : ''}}"
+            wx:for="{{['#333333', '#FFFFFF', '#FF6B6B', '#4ECDC4', '#FFE66D', '#95E1D3', '#F38181', '#AA96DA', '#000000']}}"
+            wx:key="*this"
+            style="background: {{item}};"
+            bindtap="onTextColorChange"
+            data-color="{{item}}"
+          ></view>
+        </view>
+      </view>
+      <view class="size-picker">
+        <text class="picker-label">字号 {{textSize}}</text>
+        <slider min="16" max="72" value="{{textSize}}" show-value bindchange="onTextSizeChange" />
+      </view>
+      <button class="btn-primary" bindtap="onConfirmText">确定添加</button>
+    </view>
+  </view>
+
+  <!-- 贴纸选择弹窗 -->
+  <view class="modal" wx:if="{{showStickerPicker}}">
+    <view class="modal-mask" bindtap="onCloseStickerPicker"></view>
+    <view class="modal-content sticker-modal">
+      <view class="modal-header">
+        <text class="modal-title">选择贴纸</text>
+        <text class="modal-close" bindtap="onCloseStickerPicker">✕</text>
+      </view>
+      <view class="sticker-grid">
+        <view
+          class="sticker-item"
+          wx:for="{{stickers}}"
+          wx:key="id"
+          bindtap="onStickerSelect"
+          data-item="{{item}}"
+        >
+          <text class="sticker-emoji">{{item.emoji}}</text>
+          <text class="sticker-name">{{item.name}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 背景选择弹窗 -->
+  <view class="modal" wx:if="{{showBgPicker}}">
+    <view class="modal-mask" bindtap="onCloseBgPicker"></view>
+    <view class="modal-content bg-modal">
+      <view class="modal-header">
+        <text class="modal-title">选择背景</text>
+        <text class="modal-close" bindtap="onCloseBgPicker">✕</text>
+      </view>
+      <view class="bg-grid">
+        <view
+          class="bg-item {{bgColor === item ? 'active' : ''}}"
+          wx:for="{{bgColors}}"
+          wx:key="*this"
+          style="background: {{item}};"
+          bindtap="onBgColorSelect"
+          data-color="{{item}}"
+        ></view>
+      </view>
+    </view>
+  </view>
+</view>

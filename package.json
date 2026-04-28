@@ -1,0 +1,12 @@
+{
+  "name": "meme-maker",
+  "version": "1.0.0",
+  "description": "表情包制作微信小程序 - 安全合规明确免费方案",
+  "main": "miniprogram/app.js",
+  "scripts": {
+    "validate": "node scripts/validate.js"
+  },
+  "keywords": ["表情包", "微信小程序", "云开发"],
+  "author": "",
+  "license": "MIT"
+}

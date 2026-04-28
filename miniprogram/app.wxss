@@ -1,0 +1,112 @@
+/* 全局样式 - 表情包制作小程序 */
+page {
+  --primary: #FF6B6B;
+  --primary-dark: #E55A5A;
+  --secondary: #4ECDC4;
+  --accent: #FFE66D;
+  --bg: #F7F8FA;
+  --card-bg: #FFFFFF;
+  --text: #333333;
+  --text-secondary: #666666;
+  --text-light: #999999;
+  --border: #EEEEEE;
+  --shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.06);
+
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  font-size: 28rpx;
+  line-height: 1.6;
+}
+
+.container {
+  padding: 24rpx;
+  box-sizing: border-box;
+}
+
+.card {
+  background: var(--card-bg);
+  border-radius: 24rpx;
+  padding: 32rpx;
+  margin-bottom: 24rpx;
+  box-shadow: var(--shadow);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: #fff;
+  border-radius: 48rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  height: 96rpx;
+  line-height: 96rpx;
+  text-align: center;
+  border: none;
+}
+
+.btn-primary::after {
+  border: none;
+}
+
+.btn-secondary {
+  background: var(--bg);
+  color: var(--text);
+  border-radius: 48rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  border: 2rpx solid var(--border);
+}
+
+.section-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  margin-bottom: 24rpx;
+  display: flex;
+  align-items: center;
+}
+
+.section-title::before {
+  content: '';
+  display: inline-block;
+  width: 8rpx;
+  height: 36rpx;
+  background: var(--primary);
+  border-radius: 4rpx;
+  margin-right: 16rpx;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20rpx;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16rpx;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 8rpx 20rpx;
+  border-radius: 24rpx;
+  font-size: 24rpx;
+  background: var(--bg);
+  color: var(--text-secondary);
+  margin-right: 12rpx;
+  margin-bottom: 12rpx;
+}
+
+.tag.active {
+  background: var(--primary);
+  color: #fff;
+}
+
+.safe-bottom {
+  padding-bottom: calc(24rpx + env(safe-area-inset-bottom));
+}

@@ -1,0 +1,9 @@
+{
+  "name": "getMemeTexts",
+  "version": "1.0.0",
+  "description": "获取热梗文案列表",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "latest"
+  }
+}
