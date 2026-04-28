@@ -1,0 +1,57 @@
+<view class="page">
+  <!-- 顶部导航栏 -->
+  <view class="nav-bar">
+    <view class="back-btn" bindtap="onBack">
+      <text class="back-icon">←</text>
+      <text class="back-text">返回</text>
+    </view>
+    <text class="nav-title">表情包详情</text>
+    <view class="share-btn" bindtap="onShare">
+      <text>分享</text>
+    </view>
+  </view>
+
+  <!-- 大图预览 -->
+  <view class="preview-area">
+    <image 
+      class="meme-preview" 
+      src="{{memeData.src}}" 
+      mode="widthFix"
+      bindtap="onPreviewImage"
+    />
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-bar">
+    <view class="action-item" bindtap="onSave">
+      <text class="action-icon">💾</text>
+      <text class="action-label">保存相册</text>
+    </view>
+    <view class="action-item" bindtap="onCollect">
+      <text class="action-icon">{{isCollected ? '⭐' : '☆'}}</text>
+      <text class="action-label">{{isCollected ? '已收藏' : '收藏'}}</text>
+    </view>
+    <view class="action-item" bindtap="onCopy">
+      <text class="action-icon">📝</text>
+      <text class="action-label">复制链接</text>
+    </view>
+  </view>
+
+  <!-- 推荐区域 -->
+  <view class="recommend-area" wx:if="{{recommendMemes.length > 0}}">
+    <text class="recommend-title">你可能还喜欢</text>
+    <scroll-view class="recommend-scroll" scroll-x>
+      <view class="recommend-list">
+        <view 
+          class="recommend-card"
+          wx:for="{{recommendMemes}}"
+          wx:key="id"
+          bindtap="onRecommendTap"
+          data-item="{{item}}"
+        >
+          <image class="recommend-img" src="{{item.src}}" mode="aspectFill"/>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>

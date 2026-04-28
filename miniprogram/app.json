@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/template-lib/template-lib",
+    "pages/meme-detail/meme-detail",
     "pages/template-editor/template-editor",
     "pages/index/index",
     "pages/material/material",
@@ -16,7 +17,7 @@
     "list": [
       {
         "pagePath": "pages/template-lib/template-lib",
-        "text": "模板"
+        "text": "表情"
       },
       {
         "pagePath": "pages/material/material",
@@ -31,7 +32,7 @@
   "window": {
     "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#ffffff",
-    "navigationBarTitleText": "表情包制作",
+    "navigationBarTitleText": "表情包大全",
     "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json",

@@ -1,59 +1,102 @@
-const { MEME_TEMPLATES, TEMPLATE_CATEGORIES } = require('../../data/templates');
+const { MEME_CATEGORIES, MEME_DATA } = require('../../data/memes');
+
+const PAGE_SIZE = 20;
 
 Page({
   data: {
-    categories: TEMPLATE_CATEGORIES,
+    categories: [],
     activeCategory: 'all',
-    allTemplates: MEME_TEMPLATES,
-    templates: MEME_TEMPLATES,
-    searchKeyword: ''
+    allMemes: [],
+    memes: [],
+    searchKeyword: '',
+    loading: false,
+    hasMore: true,
+    pageIndex: 0
   },
 
   onLoad() {
-    // 模板已通过 require 导入
+    // 构建分类列表
+    const catList = [{ id: 'all', name: '全部' }];
+    Object.entries(MEME_CATEGORIES).forEach(([key, val]) => {
+      catList.push({ id: key, name: val.name });
+    });
+
+    this.setData({
+      categories: catList,
+      allMemes: MEME_DATA,
+      memes: MEME_DATA.slice(0, PAGE_SIZE),
+      hasMore: MEME_DATA.length > PAGE_SIZE,
+      pageIndex: 1
+    });
   },
 
   onCategoryTap(e) {
     const catId = e.currentTarget.dataset.id;
-    this.setData({ activeCategory: catId });
-    this.filterTemplates();
+    this.setData({
+      activeCategory: catId,
+      searchKeyword: '',
+      pageIndex: 0,
+      loading: false
+    });
+    this.loadMemes(true);
   },
 
   onSearchInput(e) {
     this.setData({ searchKeyword: e.detail.value });
-    this.filterTemplates();
   },
 
   onSearchConfirm() {
-    this.filterTemplates();
+    this.setData({ pageIndex: 0 });
+    this.loadMemes(true);
   },
 
-  filterTemplates() {
-    const { activeCategory, searchKeyword, allTemplates } = this.data;
-    let list = allTemplates;
+  onLoadMore() {
+    if (this.data.loading || !this.data.hasMore) return;
+    this.loadMemes(false);
+  },
+
+  loadMemes(reset) {
+    const { activeCategory, searchKeyword, allMemes, pageIndex } = this.data;
+    this.setData({ loading: true });
+
+    let list = allMemes;
 
     // 分类筛选
     if (activeCategory !== 'all') {
-      list = list.filter(t => t.category === activeCategory);
+      list = list.filter(m => m.category === activeCategory);
     }
 
     // 关键词筛选
     if (searchKeyword) {
       const kw = searchKeyword.toLowerCase();
-      list = list.filter(t => 
-        t.name.toLowerCase().includes(kw) ||
-        t.defaultText.toLowerCase().includes(kw) ||
-        (t.tag && t.tag.toLowerCase().includes(kw))
+      list = list.filter(m =>
+        m.name.toLowerCase().includes(kw) ||
+        (m.tags && m.tags.some(t => t.toLowerCase().includes(kw)))
       );
     }
 
-    this.setData({ templates: list });
+    const start = reset ? 0 : pageIndex * PAGE_SIZE;
+    const end = start + PAGE_SIZE;
+    const pageData = list.slice(start, end);
+
+    this.setData({
+      memes: reset ? pageData : this.data.memes.concat(pageData),
+      hasMore: end < list.length,
+      pageIndex: reset ? 1 : pageIndex + 1,
+      loading: false
+    });
   },
 
-  onTemplateTap(e) {
+  onMemeTap(e) {
     const item = e.currentTarget.dataset.item;
     wx.navigateTo({
-      url: `/pages/template-editor/template-editor?id=${item.id}`
+      url: `/pages/meme-detail/meme-detail?id=${item.id}`
+    });
+  },
+
+  onCustomMeme() {
+    wx.navigateTo({
+      url: '/pages/template-lib/template-lib?mode=custom'
     });
   },
 
