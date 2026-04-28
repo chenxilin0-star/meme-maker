@@ -99,6 +99,11 @@ const MATERIALS = {
     { id: 's72', src: '/assets/stickers/lying.png', name: '说谎' },
     { id: 's73', src: '/assets/stickers/neutral.png', name: '无表情' },
     { id: 's74', src: '/assets/stickers/expressionless.png', name: '面瘫' },
+    { id: 's75', src: '/assets/stickers/panda_mischievous.png', name: '熊猫头' },
+    { id: 's76', src: '/assets/stickers/mushroom_head.png', name: '蘑菇头' },
+    { id: 's77', src: '/assets/stickers/shamate_boy.png', name: '杀马特' },
+    { id: 's78', src: '/assets/stickers/cute_ghost.png', name: '小幽灵' },
+    { id: 's79', src: '/assets/stickers/cheeky_cat.png', name: '贱猫' },
   ],
   bg: [
     { id: 'mb1', color: '#FFFFFF', name: '纯白' },
