@@ -21,6 +21,14 @@
 
   <!-- 底部工具栏 -->
   <view class="toolbar safe-bottom">
+    <view class="tool-item {{canUndo ? '' : 'disabled'}}" bindtap="onUndo">
+      <text class="tool-icon">↩️</text>
+      <text class="tool-label">撤销</text>
+    </view>
+    <view class="tool-item {{canRedo ? '' : 'disabled'}}" bindtap="onRedo">
+      <text class="tool-icon">↪️</text>
+      <text class="tool-label">重做</text>
+    </view>
     <view class="tool-item" bindtap="onAddText">
       <text class="tool-icon">📝</text>
       <text class="tool-label">文字</text>

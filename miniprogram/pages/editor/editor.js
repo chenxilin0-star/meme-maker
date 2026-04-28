@@ -72,14 +72,20 @@ Page({
     stickers: BUILTIN_STICKERS,
     bgColors: BUILTIN_BG_COLORS,
     bgColor: '#FFFFFF',
-    showActions: false
+    showActions: false,
+    canUndo: false,
+    canRedo: false
   },
 
   canvas: null,
   ctx: null,
   dpr: 1,
   touchState: null,
+  touchStartLayers: null,
   imageCache: new Map(),
+  undoStack: [],
+  redoStack: [],
+  maxHistory: 20,
 
   onLoad(options) {
     const sysInfo = wx.getWindowInfo();
@@ -436,6 +442,7 @@ Page({
 
     if (hitLayer) {
       this.setData({ activeLayerId: hitLayer.id, showActions: true });
+      this.touchStartLayers = JSON.stringify(this.data.layers);
       this.touchState = {
         layerId: hitLayer.id,
         startX: hitLayer.x,
@@ -446,6 +453,7 @@ Page({
       };
     } else {
       this.setData({ activeLayerId: null, showActions: false });
+      this.touchStartLayers = null;
     }
   },
 
@@ -487,7 +495,14 @@ Page({
   },
 
   onTouchEnd() {
+    if (this.touchState && this.touchStartLayers) {
+      const current = JSON.stringify(this.data.layers);
+      if (current !== this.touchStartLayers) {
+        this.saveHistory();
+      }
+    }
     this.touchState = null;
+    this.touchStartLayers = null;
   },
 
   hitTest(layer, tx, ty) {
@@ -547,9 +562,11 @@ Page({
     this.setData({
       layers,
       showTextEditor: false,
+      textInput: '',
       activeLayerId: layer.id,
       showActions: true
     });
+    this.saveHistory();
     this.render();
   },
 
@@ -571,6 +588,7 @@ Page({
       selectedLayerId: layer.id,
       showActions: true
     });
+    this.saveHistory();
     this.render();
   },
 
@@ -591,6 +609,7 @@ Page({
       return l;
     });
     this.setData({ layers, bgColor: color, showBgPicker: false });
+    this.saveHistory();
     this.render();
   },
 
@@ -604,6 +623,7 @@ Page({
     if (!id) return;
     const layers = this.data.layers.filter(l => l.id !== id);
     this.setData({ layers, activeLayerId: null, showActions: false });
+    this.saveHistory();
     this.render();
   },
 
@@ -615,6 +635,7 @@ Page({
       return l;
     });
     this.setData({ layers });
+    this.saveHistory();
     this.render();
   },
 
@@ -626,6 +647,43 @@ Page({
       return l;
     });
     this.setData({ layers });
+    this.saveHistory();
+    this.render();
+  },
+
+  // ========== 撤销/重做 ==========
+  saveHistory() {
+    const state = JSON.stringify(this.data.layers);
+    // 避免连续保存相同状态
+    if (this.undoStack.length > 0) {
+      const last = this.undoStack[this.undoStack.length - 1];
+      if (last === state) return;
+    }
+    this.undoStack.push(state);
+    if (this.undoStack.length > this.maxHistory) {
+      this.undoStack.shift();
+    }
+    this.redoStack = [];
+    this.setData({ canUndo: this.undoStack.length > 0, canRedo: false });
+  },
+
+  onUndo() {
+    if (this.undoStack.length === 0) return;
+    const current = JSON.stringify(this.data.layers);
+    this.redoStack.push(current);
+    const prev = this.undoStack.pop();
+    const layers = JSON.parse(prev);
+    this.setData({ layers, activeLayerId: null, showActions: false, canUndo: this.undoStack.length > 0, canRedo: this.redoStack.length > 0 });
+    this.render();
+  },
+
+  onRedo() {
+    if (this.redoStack.length === 0) return;
+    const current = JSON.stringify(this.data.layers);
+    this.undoStack.push(current);
+    const next = this.redoStack.pop();
+    const layers = JSON.parse(next);
+    this.setData({ layers, activeLayerId: null, showActions: false, canUndo: this.undoStack.length > 0, canRedo: this.redoStack.length > 0 });
     this.render();
   },
 

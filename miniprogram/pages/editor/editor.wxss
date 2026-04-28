@@ -159,8 +159,13 @@
   border: 4rpx solid transparent;
 }
 
-.color-item.active {
-  border-color: var(--primary);
+.tool-item.disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.tool-item:active {
+  opacity: 0.8;
 }
 
 .size-picker {
