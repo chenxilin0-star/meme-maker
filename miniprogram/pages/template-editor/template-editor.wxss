@@ -1,0 +1,192 @@
+.page {
+  min-height: 100vh;
+  background: #f5f6fa;
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-bar {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 32rpx;
+  background: #ffffff;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.06);
+}
+
+.back-btn {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  color: #4a90d9;
+  font-size: 28rpx;
+}
+
+.back-icon {
+  font-size: 32rpx;
+}
+
+.nav-title {
+  flex: 1;
+  text-align: center;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1a1a2e;
+}
+
+.export-btn {
+  padding: 8rpx 24rpx;
+  background: #4a90d9;
+  color: #fff;
+  border-radius: 28rpx;
+  font-size: 26rpx;
+  font-weight: 600;
+}
+
+.canvas-area {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32rpx;
+  background: #e8e8ee;
+}
+
+.meme-canvas {
+  background: #ffffff;
+  border-radius: 16rpx;
+  box-shadow: 0 8rpx 32rpx rgba(0,0,0,0.15);
+}
+
+.hint-bar {
+  padding: 20rpx;
+  background: #ffffff;
+  text-align: center;
+}
+
+.hint-text {
+  font-size: 24rpx;
+  color: #888;
+}
+
+/* 弹窗 */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: flex-end;
+}
+
+.modal-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+  position: relative;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 32rpx 32rpx 0 0;
+  padding: 32rpx;
+  z-index: 1;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24rpx;
+}
+
+.modal-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #1a1a2e;
+}
+
+.modal-close {
+  font-size: 32rpx;
+  color: #999;
+  padding: 8rpx 16rpx;
+}
+
+.text-input {
+  width: 100%;
+  min-height: 120rpx;
+  padding: 20rpx;
+  background: #f5f6fa;
+  border-radius: 16rpx;
+  font-size: 30rpx;
+  color: #333;
+  box-sizing: border-box;
+  margin-bottom: 24rpx;
+}
+
+.style-row {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.style-label {
+  width: 80rpx;
+  font-size: 28rpx;
+  color: #666;
+}
+
+.style-slider {
+  flex: 1;
+}
+
+.color-list {
+  display: flex;
+  gap: 16rpx;
+  flex-wrap: wrap;
+}
+
+.color-item {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 50%;
+  border: 4rpx solid transparent;
+}
+
+.color-item.active {
+  border-color: #4a90d9;
+  transform: scale(1.15);
+}
+
+.btn-group {
+  display: flex;
+  gap: 24rpx;
+  margin-top: 32rpx;
+}
+
+.btn {
+  flex: 1;
+  height: 88rpx;
+  border-radius: 44rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-primary {
+  background: #4a90d9;
+  color: #fff;
+}
+
+.btn-reset {
+  background: #f0f0f5;
+  color: #666;
+}

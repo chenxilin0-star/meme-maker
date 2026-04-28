@@ -1,5 +1,7 @@
 {
   "pages": [
+    "pages/template-lib/template-lib",
+    "pages/template-editor/template-editor",
     "pages/index/index",
     "pages/material/material",
     "pages/editor/editor",
@@ -13,8 +15,8 @@
     "borderStyle": "white",
     "list": [
       {
-        "pagePath": "pages/index/index",
-        "text": "首页"
+        "pagePath": "pages/template-lib/template-lib",
+        "text": "模板"
       },
       {
         "pagePath": "pages/material/material",

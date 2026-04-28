@@ -1,0 +1,62 @@
+<!-- 模板库首页 -->
+<view class="page">
+  <!-- 顶部标题栏 -->
+  <view class="header">
+    <text class="title">梗图改字器</text>
+    <text class="subtitle">选个模板，改个字，3秒出表情</text>
+  </view>
+
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <input 
+      class="search-input" 
+      placeholder="搜索模板..." 
+      value="{{searchKeyword}}"
+      bindinput="onSearchInput"
+      bindconfirm="onSearchConfirm"
+    />
+    <text class="search-icon">🔍</text>
+  </view>
+
+  <!-- 分类标签 -->
+  <scroll-view class="category-scroll" scroll-x>
+    <view class="category-list">
+      <view 
+        class="category-item {{activeCategory === item.id ? 'active' : ''}}"
+        wx:for="{{categories}}"
+        wx:key="id"
+        bindtap="onCategoryTap"
+        data-id="{{item.id}}"
+      >
+        {{item.name}}
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 模板网格 -->
+  <scroll-view class="template-scroll" scroll-y>
+    <view class="template-grid">
+      <view 
+        class="template-card"
+        wx:for="{{templates}}"
+        wx:key="id"
+        bindtap="onTemplateTap"
+        data-item="{{item}}"
+      >
+        <image class="template-img" src="{{item.src}}" mode="aspectFill" lazy-load/>
+        <view class="template-overlay">
+          <text class="template-name">{{item.name}}</text>
+          <text class="template-tag" wx:if="{{item.tag}}">{{item.tag}}</text>
+        </view>
+        <view class="template-text-preview">{{item.defaultText}}</view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 自由创作入口 -->
+  <view class="free-create" bindtap="onFreeCreate">
+    <text class="free-icon">✏️</text>
+    <text class="free-label">自由创作</text>
+    <text class="free-desc">从空白画布开始</text>
+  </view>
+</view>

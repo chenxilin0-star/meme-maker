@@ -1,0 +1,80 @@
+<view class="page">
+  <!-- 顶部导航栏 -->
+  <view class="nav-bar">
+    <view class="back-btn" bindtap="onBack">
+      <text class="back-icon">←</text>
+      <text class="back-text">返回</text>
+    </view>
+    <text class="nav-title">{{templateData.name}}</text>
+    <view class="export-btn" bindtap="onExport">
+      <text>导出</text>
+    </view>
+  </view>
+
+  <!-- 画布区域 -->
+  <view class="canvas-area">
+    <canvas
+      type="2d"
+      id="memeCanvas"
+      class="meme-canvas"
+      style="width: {{canvasWidth}}px; height: {{canvasHeight}}px;"
+      bindtouchstart="onCanvasTouchStart"
+      bindtouchmove="onCanvasTouchMove"
+      bindtouchend="onCanvasTouchEnd"
+    ></canvas>
+  </view>
+
+  <!-- 操作提示 -->
+  <view class="hint-bar">
+    <text class="hint-text">点击文字编辑，拖拽微调位置</text>
+  </view>
+
+  <!-- 文字编辑弹窗 -->
+  <view class="modal" wx:if="{{showTextModal}}">
+    <view class="modal-mask" bindtap="closeTextModal"></view>
+    <view class="modal-content">
+      <view class="modal-header">
+        <text class="modal-title">编辑文字</text>
+        <text class="modal-close" bindtap="closeTextModal">✕</text>
+      </view>
+      
+      <textarea 
+        class="text-input"
+        value="{{editText}}"
+        bindinput="onTextInput"
+        maxlength="100"
+        auto-height
+        placeholder="输入表情包文字..."
+      />
+      
+      <view class="style-row">
+        <text class="style-label">字号</text>
+        <slider class="style-slider" min="16" max="60" value="{{textStyle.fontSize}}" bindchange="onFontSizeChange" show-value/>
+      </view>
+      
+      <view class="style-row">
+        <text class="style-label">颜色</text>
+        <view class="color-list">
+          <view 
+            class="color-item {{textStyle.color === item ? 'active' : ''}}"
+            wx:for="{{colorList}}"
+            wx:key="*this"
+            style="background: {{item}};"
+            bindtap="onColorTap"
+            data-color="{{item}}"
+          ></view>
+        </view>
+      </view>
+      
+      <view class="style-row">
+        <text class="style-label">描边</text>
+        <switch checked="{{textStyle.strokeWidth > 0}}" bindchange="onStrokeToggle"/>
+      </view>
+      
+      <view class="btn-group">
+        <button class="btn btn-primary" bindtap="confirmText">确认</button>
+        <button class="btn btn-reset" bindtap="resetText">恢复原文</button>
+      </view>
+    </view>
+  </view>
+</view>
