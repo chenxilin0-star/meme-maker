@@ -109,19 +109,31 @@ Page({
       bgColor: '#FFFFFF'
     };
 
-    // 如果有传入模板图片
-    if (options.templateSrc) {
+    // 如果有传入渐变配置
+    if (options.gradient) {
+      try {
+        bgLayer.gradient = JSON.parse(decodeURIComponent(options.gradient));
+        bgLayer.bgColor = null;
+      } catch (e) {
+        console.warn('Invalid gradient param', e);
+      }
+    } else if (options.templateSrc) {
       bgLayer.src = decodeURIComponent(options.templateSrc);
       bgLayer.bgColor = null;
     } else if (options.src && options.type === 'template') {
       bgLayer.src = decodeURIComponent(options.src);
       bgLayer.bgColor = null;
     } else if (options.materialId && options.type === 'template') {
-      // 从素材库查找模板图片
+      // 从素材库查找模板
       const template = BUILTIN_TEMPLATES.find(t => t.id === options.materialId);
-      if (template && template.src) {
-        bgLayer.src = template.src;
-        bgLayer.bgColor = null;
+      if (template) {
+        if (template.gradient) {
+          bgLayer.gradient = template.gradient;
+          bgLayer.bgColor = null;
+        } else if (template.src) {
+          bgLayer.src = template.src;
+          bgLayer.bgColor = null;
+        }
       }
     }
 
@@ -271,6 +283,13 @@ Page({
         if (layer.src) {
           const img = await this.getImage(layer.src);
           ctx.drawImage(img, -layer.width / 2, -layer.height / 2, layer.width, layer.height);
+        } else if (layer.gradient && layer.gradient.length >= 2) {
+          const grd = ctx.createLinearGradient(-layer.width / 2, -layer.height / 2, -layer.width / 2, layer.height / 2);
+          layer.gradient.forEach((color, idx) => {
+            grd.addColorStop(idx / (layer.gradient.length - 1), color);
+          });
+          ctx.fillStyle = grd;
+          ctx.fillRect(-layer.width / 2, -layer.height / 2, layer.width, layer.height);
         } else {
           ctx.fillStyle = layer.bgColor || '#FFFFFF';
           ctx.fillRect(-layer.width / 2, -layer.height / 2, layer.width, layer.height);
@@ -554,7 +573,7 @@ Page({
     const color = e.currentTarget.dataset.color;
     const layers = this.data.layers.map(l => {
       if (l.type === LAYER_TYPES.BACKGROUND) {
-        return { ...l, bgColor: color };
+        return { ...l, bgColor: color, gradient: null, src: null };
       }
       return l;
     });

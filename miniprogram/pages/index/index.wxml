@@ -68,8 +68,7 @@
         bindtap="onTemplateTap"
         data-item="{{item}}"
       >
-        <view class="template-preview">
-          <image class="template-bg" src="{{item.src}}" mode="aspectFill" wx:if="{{item.src}}" />
+        <view class="template-preview" style="background: linear-gradient(to bottom, {{item.gradient[0]}}, {{item.gradient[1]}});">
           <text class="template-name-overlay">{{item.name}}</text>
         </view>
         <text class="template-name">{{item.name}}</text>

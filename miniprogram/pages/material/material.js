@@ -11,14 +11,14 @@ const CATEGORIES = [
 // 内置素材数据 - 使用真实素材图片
 const MATERIALS = {
   template: [
-    { id: 'mt1', name: '落日', tag: '经典', src: '/assets/templates/gradient_sunset.svg' },
-    { id: 'mt2', name: '海洋', tag: '简约', src: '/assets/templates/gradient_ocean.svg' },
-    { id: 'mt3', name: '打工人', tag: '职场', src: '/assets/templates/gradient_night.svg' },
-    { id: 'mt4', name: '干饭', tag: '生活', src: '/assets/templates/gradient_peach.svg' },
-    { id: 'mt5', name: '流氓兔', tag: '可爱', src: '/assets/templates/gradient_candy.svg' },
-    { id: 'mt6', name: '派大星', tag: '派大星', src: '/assets/templates/gradient_purple.svg' },
-    { id: 'mt7', name: '狗头', tag: '经典', src: '/assets/templates/gradient_forest.svg' },
-    { id: 'mt8', name: '滑稽', tag: '搞笑', src: '/assets/templates/gradient_dark.svg' }
+    { id: 'mt1', name: '落日', tag: '经典', type: 'gradient', gradient: ['#FF6B6B', '#FFE66D'] },
+    { id: 'mt2', name: '海洋', tag: '简约', type: 'gradient', gradient: ['#4ECDC4', '#44A08D'] },
+    { id: 'mt3', name: '打工人', tag: '职场', type: 'gradient', gradient: ['#0f2027', '#203a43', '#2c5364'] },
+    { id: 'mt4', name: '干饭', tag: '生活', type: 'gradient', gradient: ['#ffecd2', '#fcb69f'] },
+    { id: 'mt5', name: '流氓兔', tag: '可爱', type: 'gradient', gradient: ['#ff9a9e', '#fecfef'] },
+    { id: 'mt6', name: '派大星', tag: '派大星', type: 'gradient', gradient: ['#667eea', '#764ba2'] },
+    { id: 'mt7', name: '狗头', tag: '经典', type: 'gradient', gradient: ['#11998e', '#38ef7d'] },
+    { id: 'mt8', name: '滑稽', tag: '搞笑', type: 'gradient', gradient: ['#232526', '#414345'] }
   ],
   sticker: [
     { id: 'ms1', src: '/assets/stickers/joy.png', name: '笑哭' },
@@ -103,6 +103,10 @@ Page({
     if (cat === 'text') {
       wx.navigateTo({
         url: `/pages/editor/editor?text=${encodeURIComponent(item.text)}`
+      });
+    } else if (cat === 'template' && item.type === 'gradient') {
+      wx.navigateTo({
+        url: `/pages/editor/editor?materialId=${item.id}&type=${cat}&gradient=${encodeURIComponent(JSON.stringify(item.gradient))}`
       });
     } else if (item.src) {
       wx.navigateTo({
