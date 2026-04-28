@@ -104,6 +104,12 @@
           <text class="sticker-name">{{item.name}}</text>
         </view>
       </view>
+      <view class="upload-section">
+        <view class="upload-btn" bindtap="onUploadSticker">
+          <text class="upload-icon">+</text>
+          <text class="upload-label">从相册选图</text>
+        </view>
+      </view>
     </view>
   </view>
 

@@ -36,18 +36,76 @@ const BUILTIN_STICKERS = [
   { id: 's18', src: '/assets/stickers/doodle_cross.svg', name: '叉号' },
   { id: 's19', src: '/assets/stickers/doodle_exclamation.svg', name: '惊叹号' },
   { id: 's20', src: '/assets/stickers/icon_heart.svg', name: '心形' },
+  { id: 's21', src: '/assets/stickers/poo.png', name: '便便' },
+  { id: 's22', src: '/assets/stickers/clown.png', name: '小丑' },
+  { id: 's23', src: '/assets/stickers/skull.png', name: '髅髋' },
+  { id: 's24', src: '/assets/stickers/ghost.png', name: '幽灵' },
+  { id: 's25', src: '/assets/stickers/alien.png', name: '外星人' },
+  { id: 's26', src: '/assets/stickers/robot.png', name: '机器人' },
+  { id: 's27', src: '/assets/stickers/cat_heart.png', name: '花心猫' },
+  { id: 's28', src: '/assets/stickers/dog.png', name: '狗狗' },
+  { id: 's29', src: '/assets/stickers/frog.png', name: '青蛙' },
+  { id: 's30', src: '/assets/stickers/chicken.png', name: '小鸡' },
+  { id: 's31', src: '/assets/stickers/pig.png', name: '小猪' },
+  { id: 's32', src: '/assets/stickers/panda.png', name: '熊猫' },
+  { id: 's33', src: '/assets/stickers/monkey.png', name: '猴子' },
+  { id: 's34', src: '/assets/stickers/unicorn.png', name: '独角兽' },
+  { id: 's35', src: '/assets/stickers/butterfly.png', name: '蝴蝶' },
+  { id: 's36', src: '/assets/stickers/sunflower.png', name: '向日葵' },
+  { id: 's37', src: '/assets/stickers/rose.png', name: '玫瑰' },
+  { id: 's38', src: '/assets/stickers/cactus.png', name: '仙人掌' },
+  { id: 's39', src: '/assets/stickers/mushroom.png', name: '蘑菇' },
+  { id: 's40', src: '/assets/stickers/cookie.png', name: '饼干' },
+  { id: 's41', src: '/assets/stickers/pizza.png', name: '披萨' },
+  { id: 's42', src: '/assets/stickers/beer.png', name: '啤酒' },
+  { id: 's43', src: '/assets/stickers/coffee.png', name: '咖啡' },
+  { id: 's44', src: '/assets/stickers/gift.png', name: '礼物' },
+  { id: 's45', src: '/assets/stickers/balloon.png', name: '气球' },
+  { id: 's46', src: '/assets/stickers/tada.png', name: '礼花' },
+  { id: 's47', src: '/assets/stickers/crown.png', name: '皇冠' },
+  { id: 's48', src: '/assets/stickers/glasses.png', name: '眼镜' },
+  { id: 's49', src: '/assets/stickers/rainbow.png', name: '彩虹' },
+  { id: 's50', src: '/assets/stickers/lightning.png', name: '闪电' },
+  { id: 's51', src: '/assets/stickers/snowflake.png', name: '雪花' },
+  { id: 's52', src: '/assets/stickers/wave.png', name: '招手' },
+  { id: 's53', src: '/assets/stickers/ok_hand.png', name: 'OK' },
+  { id: 's54', src: '/assets/stickers/pray.png', name: '祈祷' },
+  { id: 's55', src: '/assets/stickers/muscle.png', name: '肌肉' },
+  { id: 's56', src: '/assets/stickers/shrug.png', name: '摊手' },
+  { id: 's57', src: '/assets/stickers/facepalm.png', name: '扶额' },
+  { id: 's58', src: '/assets/stickers/nerd.png', name: '书呆子' },
+  { id: 's59', src: '/assets/stickers/cool.png', name: '酷' },
+  { id: 's60', src: '/assets/stickers/kiss.png', name: '亲亲' },
+  { id: 's61', src: '/assets/stickers/angry.png', name: '生气' },
+  { id: 's62', src: '/assets/stickers/confused.png', name: '困惑' },
+  { id: 's63', src: '/assets/stickers/rolling_eyes.png', name: '翻白眼' },
+  { id: 's64', src: '/assets/stickers/vomit.png', name: '吐了' },
+  { id: 's65', src: '/assets/stickers/exploding_head.png', name: '脑炸' },
+  { id: 's66', src: '/assets/stickers/sunglasses.png', name: '墨镜' },
+  { id: 's67', src: '/assets/stickers/shushing.png', name: '噗' },
+  { id: 's68', src: '/assets/stickers/point_right.png', name: '右指' },
+  { id: 's69', src: '/assets/stickers/point_left.png', name: '左指' },
+  { id: 's70', src: '/assets/stickers/point_up.png', name: '上指' },
+  { id: 's71', src: '/assets/stickers/sneezing.png', name: '打喷嚏' },
+  { id: 's72', src: '/assets/stickers/lying.png', name: '说谎' },
+  { id: 's73', src: '/assets/stickers/neutral.png', name: '无表情' },
+  { id: 's74', src: '/assets/stickers/expressionless.png', name: '面瘫' },
 ];
 
-// 内置模板底图 - 使用真实SVG渐变背景
+// 内置模板底图 - 使用Canvas渐变配置
 const BUILTIN_TEMPLATES = [
-  { id: 't1', name: '落日', src: '/assets/templates/gradient_sunset.svg', type: 'image', desc: '暖色渐变背景' },
-  { id: 't2', name: '海洋', src: '/assets/templates/gradient_ocean.svg', type: 'image', desc: '清新海洋渐变' },
-  { id: 't3', name: '紫夜', src: '/assets/templates/gradient_purple.svg', type: 'image', desc: '神秘紫色渐变' },
-  { id: 't4', name: '桃花', src: '/assets/templates/gradient_peach.svg', type: 'image', desc: '温柔桃花色' },
-  { id: 't5', name: '夜空', src: '/assets/templates/gradient_night.svg', type: 'image', desc: '深邃夜空渐变' },
-  { id: 't6', name: '森林', src: '/assets/templates/gradient_forest.svg', type: 'image', desc: '自然森林渐变' },
-  { id: 't7', name: '梦幻', src: '/assets/templates/gradient_candy.svg', type: 'image', desc: '梦幻粉色渐变' },
-  { id: 't8', name: '暗色', src: '/assets/templates/gradient_dark.svg', type: 'image', desc: '酷酷暗色渐变' },
+  { id: 't1', name: '落日', type: 'gradient', gradient: ['#FF6B6B', '#FFE66D'], desc: '暖色渐变背景' },
+  { id: 't2', name: '海洋', type: 'gradient', gradient: ['#4ECDC4', '#44A08D'], desc: '清新海洋渐变' },
+  { id: 't3', name: '紫夜', type: 'gradient', gradient: ['#667eea', '#764ba2'], desc: '神秘紫色渐变' },
+  { id: 't4', name: '桃花', type: 'gradient', gradient: ['#ffecd2', '#fcb69f'], desc: '温柔桃花色' },
+  { id: 't5', name: '夜空', type: 'gradient', gradient: ['#0f2027', '#203a43', '#2c5364'], desc: '深邃夜空渐变' },
+  { id: 't6', name: '森林', type: 'gradient', gradient: ['#11998e', '#38ef7d'], desc: '自然森林渐变' },
+  { id: 't7', name: '梦幻', type: 'gradient', gradient: ['#ff9a9e', '#fecfef'], desc: '梦幻粉色渐变' },
+  { id: 't8', name: '暗色', type: 'gradient', gradient: ['#232526', '#414345'], desc: '酷酷暗色渐变' },
+  { id: 't9', name: '冰蓝', type: 'gradient', gradient: ['#2193b0', '#6dd5ed'], desc: '清爽冰蓝' },
+  { id: 't10', name: '橙子', type: 'gradient', gradient: ['#f83600', '#f9d423'], desc: '活力橙子' },
+  { id: 't11', name: '粉红', type: 'gradient', gradient: ['#ff00cc', '#333399'], desc: '赛博粉红' },
+  { id: 't12', name: '森林深', type: 'gradient', gradient: ['#134e5e', '#71b280'], desc: '深郁森林' },
 ];
 
 // 内置背景色
@@ -428,7 +486,8 @@ Page({
   // ========== 触摸事件 ==========
   onTouchStart(e) {
     const touches = e.touches;
-    const rect = e.currentTarget.getBoundingClientRect?.() || { left: 0, top: 0 };
+    const rectLeft = e.currentTarget.offsetLeft || 0;
+    const rectTop = e.currentTarget.offsetTop || 0;
 
     // 命中检测 - 从最上层开始
     const sorted = [...this.data.layers].sort((a, b) => (b.zIndex || 0) - (a.zIndex || 0));
@@ -436,8 +495,8 @@ Page({
 
     for (const layer of sorted) {
       if (layer.type === LAYER_TYPES.BACKGROUND) continue;
-      const tx = touches[0].clientX - rect.left;
-      const ty = touches[0].clientY - rect.top;
+      const tx = touches[0].clientX - rectLeft;
+      const ty = touches[0].clientY - rectTop;
       if (this.hitTest(layer, tx, ty)) {
         hitLayer = layer;
         break;
@@ -594,6 +653,30 @@ Page({
     });
     this.saveHistory();
     this.render();
+  },
+
+  onUploadSticker() {
+    wx.chooseMedia({
+      count: 1,
+      mediaType: ['image'],
+      sourceType: ['album', 'camera'],
+      success: (res) => {
+        const tempPath = res.tempFiles[0].tempFilePath;
+        const layer = this.createStickerLayer(tempPath, this.data.canvasWidth / 2, this.data.canvasHeight / 2);
+        const layers = [...this.data.layers, layer];
+        this.setData({
+          layers,
+          showStickerPicker: false,
+          selectedLayerId: layer.id,
+          showActions: true
+        });
+        this.saveHistory();
+        this.render();
+      },
+      fail: (err) => {
+        console.warn('Choose image failed:', err);
+      }
+    });
   },
 
   onCloseStickerPicker() {
