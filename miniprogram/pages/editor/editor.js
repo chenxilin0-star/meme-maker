@@ -554,7 +554,7 @@ Page({
     }
 
     this.setData({ layers: [...layers] });
-    requestAnimationFrame(() => this.render());
+    this.render();
   },
 
   onTouchEnd() {
