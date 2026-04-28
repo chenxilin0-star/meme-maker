@@ -52,7 +52,7 @@
 
 .template-preview-img {
   width: 100%;
-  aspect-ratio: 1;
+  height: 300rpx;
   border-radius: 16rpx;
   margin-bottom: 12rpx;
   background: #f0f0f5;
