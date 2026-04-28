@@ -45,14 +45,14 @@
   width: 100%;
   aspect-ratio: 1;
   border-radius: 16rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  overflow: hidden;
   margin-bottom: 12rpx;
+  position: relative;
 }
 
-.template-emoji {
-  font-size: 64rpx;
+.template-bg {
+  width: 100%;
+  height: 100%;
 }
 
 .template-name {
@@ -83,8 +83,9 @@
   box-shadow: var(--shadow);
 }
 
-.sticker-emoji {
-  font-size: 72rpx;
+.sticker-img {
+  width: 72rpx;
+  height: 72rpx;
   margin-bottom: 12rpx;
 }
 

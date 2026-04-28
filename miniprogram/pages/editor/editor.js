@@ -14,16 +14,40 @@ const DEFAULT_CONFIG = {
   bgColor: '#FFFFFF'
 };
 
-// 内置贴纸素材（使用emoji和符号作为占位，实际可替换为图片URL）
+// 内置贴纸素材 - 使用真实图片
 const BUILTIN_STICKERS = [
-  { id: 's1', src: '', emoji: '😂', name: '笑哭' },
-  { id: 's2', src: '', emoji: '😭', name: '哭泣' },
-  { id: 's3', src: '', emoji: '😏', name: '得意' },
-  { id: 's4', src: '', emoji: '😒', name: '无语' },
-  { id: 's5', src: '', emoji: '😱', name: '惊讶' },
-  { id: 's6', src: '', emoji: '😍', name: '喜爱' },
-  { id: 's7', src: '', emoji: '👍', name: '点赞' },
-  { id: 's8', src: '', emoji: '🎉', name: '庆祝' }
+  { id: 's1', src: '/assets/stickers/joy.png', name: '笑哭' },
+  { id: 's2', src: '/assets/stickers/cry.png', name: '哭泣' },
+  { id: 's3', src: '/assets/stickers/smirk.png', name: '得意' },
+  { id: 's4', src: '/assets/stickers/unamused.png', name: '无语' },
+  { id: 's5', src: '/assets/stickers/scream.png', name: '惊讶' },
+  { id: 's6', src: '/assets/stickers/heart_eyes.png', name: '喜爱' },
+  { id: 's7', src: '/assets/stickers/thumbsup.png', name: '点赞' },
+  { id: 's8', src: '/assets/stickers/party.png', name: '庆祝' },
+  { id: 's9', src: '/assets/stickers/smiling_imp.png', name: '小恶魔' },
+  { id: 's10', src: '/assets/stickers/zany_face.png', name: '调皮' },
+  { id: 's11', src: '/assets/stickers/thinking.png', name: '思考' },
+  { id: 's12', src: '/assets/stickers/sleeping.png', name: '困了' },
+  { id: 's13', src: '/assets/stickers/fire.png', name: '火焰' },
+  { id: 's14', src: '/assets/stickers/heart.png', name: '爱心' },
+  { id: 's15', src: '/assets/stickers/star.png', name: '星星' },
+  { id: 's16', src: '/assets/stickers/smile.png', name: '微笑' },
+  { id: 's17', src: '/assets/stickers/doodle_check.svg', name: '对勾' },
+  { id: 's18', src: '/assets/stickers/doodle_cross.svg', name: '叉号' },
+  { id: 's19', src: '/assets/stickers/doodle_exclamation.svg', name: '惊叹号' },
+  { id: 's20', src: '/assets/stickers/icon_heart.svg', name: '心形' },
+];
+
+// 内置模板底图 - 使用真实SVG渐变背景
+const BUILTIN_TEMPLATES = [
+  { id: 't1', name: '落日', src: '/assets/templates/gradient_sunset.svg', type: 'image', desc: '暖色渐变背景' },
+  { id: 't2', name: '海洋', src: '/assets/templates/gradient_ocean.svg', type: 'image', desc: '清新海洋渐变' },
+  { id: 't3', name: '紫夜', src: '/assets/templates/gradient_purple.svg', type: 'image', desc: '神秘紫色渐变' },
+  { id: 't4', name: '桃花', src: '/assets/templates/gradient_peach.svg', type: 'image', desc: '温柔桃花色' },
+  { id: 't5', name: '夜空', src: '/assets/templates/gradient_night.svg', type: 'image', desc: '深邃夜空渐变' },
+  { id: 't6', name: '森林', src: '/assets/templates/gradient_forest.svg', type: 'image', desc: '自然森林渐变' },
+  { id: 't7', name: '梦幻', src: '/assets/templates/gradient_candy.svg', type: 'image', desc: '梦幻粉色渐变' },
+  { id: 't8', name: '暗色', src: '/assets/templates/gradient_dark.svg', type: 'image', desc: '酷酷暗色渐变' },
 ];
 
 // 内置背景色
@@ -71,7 +95,7 @@ Page({
     const initialLayers = [];
 
     // 背景图层
-    initialLayers.push({
+    const bgLayer = {
       id: 'bg_' + Date.now(),
       type: LAYER_TYPES.BACKGROUND,
       x: canvasSize / 2,
@@ -83,11 +107,50 @@ Page({
       opacity: 1,
       zIndex: 0,
       bgColor: '#FFFFFF'
-    });
+    };
+
+    // 如果有传入模板图片
+    if (options.templateSrc) {
+      bgLayer.src = decodeURIComponent(options.templateSrc);
+      bgLayer.bgColor = null;
+    } else if (options.src && options.type === 'template') {
+      bgLayer.src = decodeURIComponent(options.src);
+      bgLayer.bgColor = null;
+    } else if (options.materialId && options.type === 'template') {
+      // 从素材库查找模板图片
+      const template = BUILTIN_TEMPLATES.find(t => t.id === options.materialId);
+      if (template && template.src) {
+        bgLayer.src = template.src;
+        bgLayer.bgColor = null;
+      }
+    }
+
+    initialLayers.push(bgLayer);
+
+    // 如果有传入贴纸
+    if (options.stickerSrc) {
+      const stickerLayer = this.createStickerLayer(decodeURIComponent(options.stickerSrc));
+      stickerLayer.x = canvasSize / 2;
+      stickerLayer.y = canvasSize / 2;
+      initialLayers.push(stickerLayer);
+    } else if (options.src && options.type === 'sticker') {
+      const stickerLayer = this.createStickerLayer(decodeURIComponent(options.src));
+      stickerLayer.x = canvasSize / 2;
+      stickerLayer.y = canvasSize / 2;
+      initialLayers.push(stickerLayer);
+    } else if (options.materialId && options.type === 'sticker') {
+      const sticker = BUILTIN_STICKERS.find(s => s.id === options.materialId);
+      if (sticker && sticker.src) {
+        const stickerLayer = this.createStickerLayer(sticker.src);
+        stickerLayer.x = canvasSize / 2;
+        stickerLayer.y = canvasSize / 2;
+        initialLayers.push(stickerLayer);
+      }
+    }
 
     // 如果有传入文字
     if (options.text) {
-      initialLayers.push(this.createTextLayer(options.text, canvasSize / 2, canvasSize / 2));
+      initialLayers.push(this.createTextLayer(decodeURIComponent(options.text), canvasSize / 2, canvasSize / 2));
     }
 
     this.setData({ layers: initialLayers });
@@ -169,11 +232,11 @@ Page({
     };
   },
 
-  createStickerLayer(emoji, x, y) {
+  createStickerLayer(src, x, y) {
     return {
       id: 'sticker_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
       type: LAYER_TYPES.STICKER,
-      emoji,
+      src,
       x,
       y,
       width: 60,
@@ -205,15 +268,15 @@ Page({
       ctx.scale((layer.scale || 1), (layer.scale || 1));
 
       if (layer.type === LAYER_TYPES.BACKGROUND) {
-        ctx.fillStyle = layer.bgColor || '#FFFFFF';
-        ctx.fillRect(-layer.width / 2, -layer.height / 2, layer.width, layer.height);
+        if (layer.src) {
+          const img = await this.getImage(layer.src);
+          ctx.drawImage(img, -layer.width / 2, -layer.height / 2, layer.width, layer.height);
+        } else {
+          ctx.fillStyle = layer.bgColor || '#FFFFFF';
+          ctx.fillRect(-layer.width / 2, -layer.height / 2, layer.width, layer.height);
+        }
       } else if (layer.type === LAYER_TYPES.STICKER) {
-        if (layer.emoji) {
-          ctx.font = `${layer.width}px sans-serif`;
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'middle';
-          ctx.fillText(layer.emoji, 0, 0);
-        } else if (layer.src) {
+        if (layer.src) {
           const img = await this.getImage(layer.src);
           const dw = layer.width || img.width;
           const dh = layer.height || img.height;
@@ -468,13 +531,12 @@ Page({
 
   onStickerSelect(e) {
     const sticker = e.currentTarget.dataset.item;
-    const layer = this.createStickerLayer(sticker.emoji, this.data.canvasWidth / 2, this.data.canvasHeight / 2);
-    const layers = this.data.layers;
-    layers.push(layer);
+    const layer = this.createStickerLayer(sticker.src, this.data.canvasWidth / 2, this.data.canvasHeight / 2);
+    const layers = [...this.data.layers, layer];
     this.setData({
       layers,
       showStickerPicker: false,
-      activeLayerId: layer.id,
+      selectedLayerId: layer.id,
       showActions: true
     });
     this.render();

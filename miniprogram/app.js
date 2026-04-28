@@ -2,7 +2,7 @@ App({
   globalData: {
     userInfo: null,
     openid: null,
-    cloudEnv: 'your-cloud-env-id' // 替换为真实的云开发环境ID
+    cloudEnv: 'cloudbase-0gfz6a1mf0af3d53' // 微信云开发环境ID
   },
 
   onLaunch() {

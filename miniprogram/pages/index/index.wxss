@@ -191,17 +191,21 @@
   justify-content: center;
   position: relative;
   margin-bottom: 12rpx;
+  overflow: hidden;
+  background: var(--bg);
 }
 
-.template-emoji {
-  font-size: 80rpx;
+.template-bg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .template-name-overlay {
-  position: absolute;
-  bottom: 12rpx;
-  left: 12rpx;
-  right: 12rpx;
+  position: relative;
+  z-index: 1;
   background: rgba(0, 0, 0, 0.5);
   color: #fff;
   font-size: 24rpx;

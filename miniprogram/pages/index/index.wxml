@@ -68,8 +68,8 @@
         bindtap="onTemplateTap"
         data-item="{{item}}"
       >
-        <view class="template-preview" style="background: {{item.bgColor || '#f0f0f0'}};">
-          <text class="template-emoji" wx:if="{{item.bg}}">🐼</text>
+        <view class="template-preview">
+          <image class="template-bg" src="{{item.src}}" mode="aspectFill" wx:if="{{item.src}}" />
           <text class="template-name-overlay">{{item.name}}</text>
         </view>
         <text class="template-name">{{item.name}}</text>

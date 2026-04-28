@@ -92,7 +92,7 @@
           bindtap="onStickerSelect"
           data-item="{{item}}"
         >
-          <text class="sticker-emoji">{{item.emoji}}</text>
+          <image class="sticker-img" src="{{item.src}}" mode="aspectFit" />
           <text class="sticker-name">{{item.name}}</text>
         </view>
       </view>

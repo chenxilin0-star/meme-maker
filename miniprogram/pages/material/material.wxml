@@ -40,8 +40,8 @@
         bindtap="onMaterialTap"
         data-item="{{item}}"
       >
-        <view class="template-preview" style="background: {{item.color}}20;">
-          <text class="template-emoji">🎨</text>
+        <view class="template-preview">
+          <image class="template-bg" src="{{item.src}}" mode="aspectFill" />
         </view>
         <text class="template-name">{{item.name}}</text>
         <text class="template-tag">{{item.tag}}</text>
@@ -57,7 +57,7 @@
         bindtap="onMaterialTap"
         data-item="{{item}}"
       >
-        <text class="sticker-emoji">{{item.emoji}}</text>
+        <image class="sticker-img" src="{{item.src}}" mode="aspectFit" />
         <text class="sticker-name">{{item.name}}</text>
       </view>
     </view>

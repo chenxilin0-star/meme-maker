@@ -1,14 +1,16 @@
 const api = require('../../utils/api');
 const store = require('../../utils/store');
 
-// 内置模板数据 - 使用免费素材源描述，实际运行时从云存储加载
+// 内置模板数据 - 使用真实素材图片
 const BUILTIN_TEMPLATES = [
-  { id: 't1', name: '熊猫头', category: 'classic', color: '#333', type: 'text', bg: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/svg/1f43c.svg', desc: '经典熊猫头模板' },
-  { id: 't2', name: '纯文字', category: 'simple', color: '#FF6B6B', type: 'color', bgColor: '#FFE66D', desc: '纯色背景配大字' },
-  { id: 't3', name: '打工人', category: 'work', color: '#4ECDC4', type: 'text', bg: '', desc: '打工人专属' },
-  { id: 't4', name: '干饭', category: 'food', color: '#FF8C42', type: 'text', bg: '', desc: '干饭人干饭魂' },
-  { id: 't5', name: '流氓兔', category: 'animal', color: '#FF6B6B', type: 'text', bg: '', desc: '可爱兔兔表情' },
-  { id: 't6', name: '神奇海螺', category: 'funny', color: '#4ECDC4', type: 'text', bg: '', desc: '神奇海螺在这里' }
+  { id: 't1', name: '落日', category: 'classic', src: '/assets/templates/gradient_sunset.svg', type: 'image', desc: '暖色渐变背景' },
+  { id: 't2', name: '海洋', category: 'simple', src: '/assets/templates/gradient_ocean.svg', type: 'image', desc: '清新海洋渐变' },
+  { id: 't3', name: '打工人', category: 'work', src: '/assets/templates/gradient_night.svg', type: 'image', desc: '深邃夜空渐变' },
+  { id: 't4', name: '干饭', category: 'food', src: '/assets/templates/gradient_peach.svg', type: 'image', desc: '温柔桃花色' },
+  { id: 't5', name: '流氓兔', category: 'animal', src: '/assets/templates/gradient_candy.svg', type: 'image', desc: '梦幻粉色渐变' },
+  { id: 't6', name: '神奇海螺', category: 'funny', src: '/assets/templates/gradient_purple.svg', type: 'image', desc: '神秘紫色渐变' },
+  { id: 't7', name: '森林', category: 'classic', src: '/assets/templates/gradient_forest.svg', type: 'image', desc: '自然森林渐变' },
+  { id: 't8', name: '暗色', category: 'funny', src: '/assets/templates/gradient_dark.svg', type: 'image', desc: '酷酷暗色渐变' }
 ];
 
 // 分类标签
@@ -102,8 +104,12 @@ Page({
   // 点击模板
   onTemplateTap(e) {
     const template = e.currentTarget.dataset.item;
+    const params = [`templateId=${template.id}`, `name=${encodeURIComponent(template.name)}`];
+    if (template.src) {
+      params.push(`templateSrc=${encodeURIComponent(template.src)}`);
+    }
     wx.navigateTo({
-      url: `/pages/editor/editor?templateId=${template.id}&name=${encodeURIComponent(template.name)}`
+      url: `/pages/editor/editor?${params.join('&')}`
     });
   },
 
